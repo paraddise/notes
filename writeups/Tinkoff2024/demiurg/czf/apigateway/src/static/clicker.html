@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Игра Сизифа</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Игра Сизифа</h1>
+            <div class="margin-bottom20">
+                <h2 id="clickCount" class="padding-5"></h2>
+                <button class="button is-info padding-5" onclick="makeClick()">Клик!</button>
+                <h2 id="clickMultiplicator" class="has-text-grey"></h2>
+            </div>
+            <div class="margin-bottom20">
+                <h2><b>Изменения внешнего вида</b></h2>
+                <div class="has-text-grey padding-5">Всего за 5 кликов, можно полностью изменить мир вокруг.</div>
+                <button class="button is-warning" onclick="buyColor('black')">Купить Черную Тему</button>
+                <button class="button is-warning" onclick="buyColor('white')">Купить Белую Тему</button>
+                <button class="button is-warning" onclick="buyColor('aqua')">Купить Аквамарин Тему</button>
+            </div>
+            <div class="margin-bottom20">
+                <h2><b>Специальные предложения</b></h2>
+                <div class="has-text-grey padding-5">Прокаченные клики, всего за 213370 обычных кликов.</div>
+                <button class="button is-success" onclick="buyPremium()">Купить Премиум</button>
+            </div>
+            <div class="margin-bottom20">
+                <h2><b>Другие возможности</b></h2>
+                <div class="has-text-grey padding-5">Если все это надоело.</div>
+                <button class="button is-danger" onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </section>
+    <script src="app.js"></script>
+</body>
+</html>

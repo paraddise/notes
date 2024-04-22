@@ -1,0 +1,53 @@
+version: '2.4'
+
+services:
+    userinfo:
+        build: userinfo/.
+        init: true
+        ports:
+            - "127.0.0.1:20006:6080"
+        environment:
+            - SESSION_SIGN_KEY=check123check
+            - FLAG=superflag
+        pids_limit: 500
+        cpus: 2
+        mem_limit: 2G
+        restart: always
+        stop_grace_period: 0s
+    
+    apigateway:
+        build: apigateway/.
+        init: true
+        ports:
+            - "20027:9080"
+            - "127.0.0.1:24437:9443"
+        environment:
+            - SESSION_SIGN_KEY=check123check
+        pids_limit: 500
+        cpus: 2
+        mem_limit: 2G
+        restart: always
+        stop_grace_period: 0s
+
+    shop:
+        build: shop/.
+        init: true
+        ports:
+            - "127.0.0.1:20008:9080"
+        pids_limit: 500
+        cpus: 2
+        mem_limit: 2G
+        restart: always
+        stop_grace_period: 0s
+            
+    db:
+        image: postgres
+        volumes:
+            - ./userinfo/dbinit:/docker-entrypoint-initdb.d:ro
+        environment:
+            - POSTGRES_PASSWORD=password
+        pids_limit: 500
+        cpus: 2
+        mem_limit: 2G
+        restart: always
+        stop_grace_period: 0s

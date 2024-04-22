@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/go.min.js"></script>
+
+    <style>
+        * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ 
+ body {
+     font-family: 'Times New Roman', serif;
+     background-color: #f4f1ea;
+     color: #5e503f;
+     padding: 30px; 
+     margin: 20px; 
+     background-image: url('static/img/agora.webp');
+     background-size: cover;
+     background-position: center;
+     position: relative;
+     min-height: 100vh;
+ }
+ 
+ .container {
+     margin: auto;
+     padding-top: 100px;
+ }
+ 
+ .card {
+     margin: auto;
+     background-color:#f4f1ea;
+     padding-top: 40px;
+     background-image: url('static/img/ancient-greek-meander-2.png');
+     background-size: 40px;
+     background-position: top left, top right;
+     background-repeat: repeat-x;
+ }
+ 
+ .header {
+     text-align: center;
+     margin-bottom: 40px;
+ }
+ 
+ .header h1 {
+     font-size: 2.5em;
+     margin-bottom: 0.5em;
+ }
+ 
+ .columns {
+     display: flex;
+     gap: 20px;
+     margin-bottom: 20px;
+ }
+ 
+ .column {
+     flex: 1;
+     padding: 20px;
+     background: #e6e2dd; 
+     border: 1px solid #c1b49a; 
+ }
+ 
+ .decorative-border {
+     border-top: 10px double #c1b49a;
+     border-bottom: 10px double #c1b49a;
+     padding: 10px;
+     margin: 20px 0;
+ }
+ 
+ .button {
+     display: inline-block;
+     padding: 10px 20px;
+     background-color: #8a7e69;
+     color: #fff;
+     text-decoration: none;
+     border: none;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+ }
+ 
+ .button:hover {
+     background-color: #746953;
+ }
+ 
+ .golden-text {
+     color: #d4af37;
+     font-weight: bold;
+ }
+ 
+ .footnote {
+     font-size: 0.9em;
+     text-align: center;
+     margin-top: 40px;
+     color: #746953; 
+ }
+ 
+ a {
+     color: #5e503f;
+     text-decoration: underline;
+ }
+ 
+ a:hover {
+     color: #8a7e69;
+ }
+ h2 {
+     background-color:#f4f1ea;
+     width: fit-content;
+ }
+     </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">Forum</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="button" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button" href="/logout">Logout</a>
+                    </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        
+        <div id="profile"></div>
+
+        
+        <div class="card mt-3">
+            <h2 class="mt-3">Update your info:</h2>
+            <div class="card-body">
+                <form id="ageUpdate">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required>
+                    </div>
+                    <button type="submit" class="button">Submit</button>
+                </form>
+                <form action="/profile/password" method="POST">
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Password</label>
+                        <input class="form-control" type="password" value="" placeholder="password" name="password" required>
+                    </div>
+                    <button type="submit" class="button">Submit</button>
+                </form>
+                </div>
+                </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            fetchMessages();
+
+            $('#ageUpdate').on('submit', function(e) {
+                e.preventDefault();
+                const message = {
+                    age: $('#age').val()
+                };
+                $.post('/profile/age', message, function() {
+                    fetchMessages(); 
+                    $('#age').val('');
+                });
+            });
+
+            function fetchMessages() {
+                $.get('/profile/get', function(profile) {
+                    $('#profile').empty();
+                    $('#profile').append(
+                            `<div class="card mt-3">
+                                <h2 class="mt-3">Profile</h2>
+                                <div class="card-body">
+                                    <h5 class="card-title">Username: ${profile.username}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Age: ${profile.age}</h6>
+                                </div>
+                            </div>`
+                        );
+                });
+            }
+        });
+    </script>
+
+    <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert"
+        style="position: fixed; bottom: 0; right: 0; display: none;">
+        <strong>Error!</strong> <span id="error-text"></span>
+        <button type="button" class="close" onclick="$('#error-alert').hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</body>
+
+</html>

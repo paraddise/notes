@@ -1,0 +1,43 @@
+version: '2.4'
+
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    ports:
+     - "127.0.0.1:20017:8080"
+    pids_limit: 500
+    cpus: 2
+    mem_limit: 2G
+    restart: always
+    stop_grace_period: 0s
+
+  db:
+    image: postgres:15.3
+    command: "postgres -c shared_buffers=256MB -c max_connections=200"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${FIRE_DB_NAME}
+      POSTGRES_USER: ${FIRE_DB_USER}
+      POSTGRES_PASSWORD: ${FIRE_DB_PASSWORD}
+      PGUSER: ${FIRE_DB_USER}
+      PGDATABASE: ${FIRE_DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+      - postgres_fire:/var/lib/postgresql/data
+    pids_limit: 500
+    cpus: 2
+    mem_limit: 2G
+    restart: always
+
+
+volumes:
+  "postgres_fire":

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Игра Сизифа</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Игра Сизифа</h1>
+            <div class="tabs">
+                <ul>
+                    <li class="is-active" id="loginTab"><a>Вход</a></li>
+                    <li id="registerTab"><a>Регистрация</a></li>
+                </ul>
+            </div>
+            <div id="loginForm">
+                <div class="field">
+                    <label class="label">Логин</label>
+                    <div class="control">
+                        <input class="input" minlength=10 type="text" placeholder="Логин" id="loginUsername">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Пароль</label>
+                    <div class="control">
+                        <input class="input" minlength=10 type="password" placeholder="Пароль" id="loginPassword">
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-link" onclick="loginUser()">Войти</button>
+                </div>
+            </div>
+            <div id="registerForm" style="display:none;">
+                <div class="field">
+                    <label class="label">Логин</label>
+                    <div class="control">
+                        <input class="input" minlength=10 type="text" placeholder="Логин" id="registerUsername">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Пароль</label>
+                    <div class="control">
+                        <input class="input" minlength=10 type="password" placeholder="Пароль" id="registerPassword">
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-link" onclick="registerUser()">Зарегистрироваться</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="app.js"></script>
+</body>
+</html>

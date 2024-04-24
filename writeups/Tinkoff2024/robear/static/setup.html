@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bear Setup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .hero {
+            background-color: #eeebe3;
+        }
+        .hero-body {
+            padding-top: 1rem;
+        }
+        .title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+        p.control.has-icons-left .icon {
+            top: .25rem;
+        }
+        .input, .button {
+            font-size: 1.25rem;
+        }
+        .image img {
+            width: unset;
+            max-height: 200px;
+            aspect-ratio: 16 / 9;
+            margin: auto;
+        }
+        .box {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <figure class="image">
+                            <img src="bear.gif" alt="Bear Image">
+                        </figure>
+                        <h1 class="title">Bear Setup</h1>
+                        <div class="box">
+                            <form id="setupForm">
+                                <div class="field">
+                                    Mode:
+                                    <div class="control has-icons-left">
+                                        <div class="select is-medium">
+                                            <select class="input" placeholder="Mode" id="mode">
+                                                <option value="Researcher" selected>Researcher</option>
+                                                <option value="Firefighter">Firefighter</option>
+                                                <option value="Babysitter">Babysitter</option>
+                                                <option value="Hairdresser">Hairdresser</option>
+                                                <option value="Mathprofessor">Mathprofessor</option>
+                                            </select>
+                                        </div>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-wrench"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field is-grouped">
+                                    <p class="control">
+                                        <button class="button is-warning is-large" type="submit">
+                                            Setup
+                                        </button>
+                                    </p>
+                                    <p class="control">
+                                        <button class="button is-danger is-large" onclick="window.location='logout.html'">Logout</button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Setup</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p id="modal-p-text">Setup Failed</p>
+            </section>
+        </div>
+    </div>
+    <script>
+        document.getElementById('setupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var mode = document.getElementById('mode').value;
+            fetch('/api/setup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: mode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.flag) {
+                    document.getElementById('modal-p-text').innerText = data.flag;
+                    var modal = document.querySelector('.modal');
+                    modal.classList.add('is-active');
+                    document.querySelector('.delete').addEventListener('click', function() {
+                        modal.classList.remove('is-active');
+                    });
+                }
+            })
+            .catch(error => {
+                var modal = document.querySelector('.modal');
+                modal.classList.add('is-active');
+                document.querySelector('.delete').addEventListener('click', function() {
+                    modal.classList.remove('is-active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

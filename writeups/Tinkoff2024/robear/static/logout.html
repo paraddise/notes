@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .hero {
+            background-color: #eeebe3;
+        }
+        .hero-body {
+            padding-top: 1rem;
+        }
+        .title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+        .control.has-icons-left .icon {
+            top: .25rem;
+        }
+        .input, .button {
+            font-size: 1.25rem;
+        }
+        .image img {
+            width: unset;
+            max-height: 200px;
+            aspect-ratio: 16 / 9;
+            margin: auto;
+        }
+        .box {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <figure class="image">
+                            <img src="bear.gif" alt="Bear Image">
+                        </figure>
+                        <h1 class="title">Bye Bye</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        fetch('/api/logout', {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = 'index.html';
+        })
+    </script>
+</body>
+</html>

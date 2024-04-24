@@ -1,0 +1,20 @@
+{% include "x.html" %}
+<BODY>
+    <MAIN>
+        <H1>Firmware Upgrade</H1>
+        <FORM METHOD="POST" ACTION="" ENCTYPE="multipart/form-data">
+        <DL>
+            <DT>Firmware version:</DT>
+            <DD>{{ version }}</DD>
+            <DT>Hardware version:</DT>
+            <DD>TVA172P.012016</DD>
+            <DT>New firmware:</DT>
+            <DD><INPUT TYPE="FILE" NAME="firmware" /></DD>
+        </DL>
+        <CENTER>
+            <BUTTON TYPE="SUBMIT">Install</BUTTON>
+        </CENTER>
+        </FORM>
+    </MAIN>
+</BODY>
+</HTML>

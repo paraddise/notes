@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "tvlink"
+version = "0.1.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.12"
+gunicorn = "^21.2.0"
+fastapi = "^0.110.1"
+jinja2 = "^3.1.3"
+uvicorn = "^0.29.0"
+python-multipart = "^0.0.9"
+itsdangerous = "^2.2.0"
+
+[tool.poetry.scripts]
+tvlink = "tvlink:run"
+tvlink-debug = "tvlink.app:debug"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

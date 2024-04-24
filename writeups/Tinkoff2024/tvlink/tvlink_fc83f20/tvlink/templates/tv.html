@@ -1,0 +1,30 @@
+{% include "x.html" %}
+<MAIN>
+    <h1>Device Status</h1>
+    <DL>
+        <DT>Device Status</DT>
+        <DD>Inactive</DD>
+        <DT>Receiver Enabled</DT>
+        <DD>{% if tv_enabled %}YES{% else %}NO{% endif %}</DD>
+        <DT>Channels Available</DT>
+        <DD>0</DD>
+    </DL>
+    <HR/>
+    <DL>
+        <DT>IP Address</DT>
+        <DD>192.168.1.44</DD>
+        <DT>Subnet Mask</DT>
+        <DD>255.255.254.0</DD>
+        <DT>Internet Gateway</DT>
+        <DD>192.168.0.254</DD>
+    </DL>
+    <HR/>
+    <DL>
+        <DT>Channel 1 Frequency</DT>
+        <DD>2.352 GHz</DD>
+        <DT>Channel 2 Frequency</DT>
+        <DD>2.359 GHz</DD>
+        <DT>Channel 3 Frequency</DT>
+        <DD>N/A</DD>
+    </DL>
+</MAIN>
